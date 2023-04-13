@@ -1,0 +1,28 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: random-annotation-webhook
+webhooks:
+- name: random-annotation-webhook.example.com
+  clientConfig:
+    url: http://webhook-service.default.svc.cluster.local:8080/webhook
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    resources:
+    - pods
+    scope: "Namespaced"
+  failurePolicy: Fail
+  namespaceSelector:
+    matchLabels:
+      app: myapp
+  admissionReviewVersions:
+  - "v1beta1"
+  - "v1"
+  sideEffects: None
+  patch:
+    type: "JSONPatch"
