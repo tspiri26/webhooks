@@ -19,7 +19,7 @@ webhooks:
   failurePolicy: Fail
   namespaceSelector:
     matchLabels:
-      app: myapp
+      app: webhooks
   admissionReviewVersions:
   - "v1beta1"
   - "v1"
